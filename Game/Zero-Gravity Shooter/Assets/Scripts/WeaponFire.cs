@@ -11,7 +11,6 @@ public class WeaponFire : MonoBehaviour
     int maxFired = 33;              //amount that can be fired
 
     private Rigidbody player;
-  //private GameObject bullet;
     public float bulletSpeed = 100; //will be private, public for easy testing
   //public float fireRate = 0;      //private
     public float weaponRange = 50;  //private
@@ -19,7 +18,6 @@ public class WeaponFire : MonoBehaviour
     void Start()
     {
         player = GetComponentInParent<Rigidbody>();
-      //bullet = GameObject.FindGameObjectWithTag("Bullet");
     }
 
 	void Update ()
