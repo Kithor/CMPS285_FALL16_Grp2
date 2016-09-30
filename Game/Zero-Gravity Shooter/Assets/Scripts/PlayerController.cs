@@ -31,5 +31,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision col){}
+    void OnCollisionEnter(Collision col)
+    {
+        player.velocity = Vector3.zero;
+    }
 }

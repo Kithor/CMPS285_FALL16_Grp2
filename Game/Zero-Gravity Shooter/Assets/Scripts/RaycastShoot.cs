@@ -3,8 +3,8 @@ using System.Collections;
 
 public class RaycastShoot : MonoBehaviour
 {
+    public int weaponDamage = 10;
     public float gunForce = 800;
-    public float damage = 10;
     public float fireRate = 0.1f;
     public float weaponRange = 50;
     public float hitForce = 100f;
@@ -41,6 +41,12 @@ public class RaycastShoot : MonoBehaviour
             if (Physics.Raycast(rayOrigin, cam.transform.forward, out hit, weaponRange))
             {
                 laserLine.SetPosition(1, hit.point);
+
+                if (hit.collider.tag == "Enemy")
+                {
+                    var enemy = hit.collider.GetComponent<PlayerHealth>();
+                    enemy.health -= weaponDamage;
+                }
             }
             else
             {
@@ -54,6 +60,8 @@ public class RaycastShoot : MonoBehaviour
         {
             shotsFired = 0;
         }
+
+        Debug.DrawRay(gunEnd.position, transform.forward * weaponRange, Color.green);
 	}
 
     private IEnumerator ShotEffect()
