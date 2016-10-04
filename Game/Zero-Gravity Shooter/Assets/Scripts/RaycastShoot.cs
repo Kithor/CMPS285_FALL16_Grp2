@@ -42,9 +42,16 @@ public class RaycastShoot : MonoBehaviour
             {
                 laserLine.SetPosition(1, hit.point);
 
-                if (hit.collider.tag == "Enemy")
+                if (player.tag == "Blue" && hit.collider.tag == "Red")
                 {
                     var enemy = hit.collider.GetComponent<PlayerHealth>();
+                    enemy.hitDelay = enemy.hitTimer + Time.time;
+                    enemy.health -= weaponDamage;
+                }
+                else if (player.tag == "Red" && hit.collider.tag == "Blue")
+                {
+                    var enemy = hit.collider.GetComponent<PlayerHealth>();
+                    enemy.hitDelay = enemy.hitTimer + Time.time;
                     enemy.health -= weaponDamage;
                 }
             }
@@ -63,6 +70,11 @@ public class RaycastShoot : MonoBehaviour
 
         Debug.DrawRay(gunEnd.position, transform.forward * weaponRange, Color.green);
 	}
+
+    void OnGUI()
+    {
+        GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 10, 10), "");
+    }
 
     private IEnumerator ShotEffect()
     {
