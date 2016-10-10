@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking; 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
+    if(!isLocalPlayer)
+    {
+        return;
+    }    
+
     public Rigidbody player;
     public float horizontalSpeed = 10.0f;
     public float verticalSpeed = 10.0f;
