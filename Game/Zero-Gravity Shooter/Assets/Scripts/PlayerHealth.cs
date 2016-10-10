@@ -3,12 +3,12 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int health = 100;
-    public int healthRegen = 2;
+    public float health = 100;
+    public float healthRegen = 1;
     public float hitTimer = 10;
     public float hitDelay;
 
-    private float regenTimer = 0.5f;
+    private float regenTimer = 0.25f;
     private float regenDelay;
     private bool isRegening = false;
 
