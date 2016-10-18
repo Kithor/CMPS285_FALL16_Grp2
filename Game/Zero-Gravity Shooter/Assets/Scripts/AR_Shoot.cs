@@ -73,8 +73,6 @@ public class AR_Shoot : MonoBehaviour
         {
             shotsFired = 0;                                                                     //When R pressed reload
         }
-
-        Debug.DrawRay(gunEnd.position, transform.forward * weaponRange, Color.green);
 	}
 
     void OnGUI()

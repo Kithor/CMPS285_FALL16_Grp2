@@ -24,8 +24,6 @@ public class PlayerHealth : NetworkBehaviour
             return;     
         }
 
-        Debug.Log(health.ToString());
-
         if (health < 50 && !isRegening && hitDelay < Time.time)
         {
             StartCoroutine(HealthRegen());
