@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
-    public float health = 100;
+    public const float maxhealth = 100;
+    [SyncVar] public float health = maxhealth;                    //creates a "currenthealth" pool that is synced across the server for only localplayer
+
     public float healthRegen = 1;
     public float hitTimer = 10;
     public float hitDelay;
@@ -12,8 +15,15 @@ public class PlayerHealth : MonoBehaviour
     private float regenDelay;
     private bool isRegening = false;
 
+                           
 	void Update ()
     {
+
+        if(!isServer)                                               //syncs local player's health to server so that all players don't share same health amount
+        {
+            return;     
+        }
+
         Debug.Log(health.ToString());
 
         if (health < 50 && !isRegening && hitDelay < Time.time)
@@ -21,9 +31,10 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(HealthRegen());
         }
 
-	    if (health <= 0)
+        if (health <= 0)
         {
-            Destroy(gameObject);
+            health = maxhealth;
+            RpcRespawn();
         }
 	}
 
@@ -38,5 +49,14 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(regenTimer);
         }
         isRegening = false;
+    }
+
+    [ClientRpc]
+    void RpcRespawn()
+    {
+       if (!isLocalPlayer)
+        {
+            transform.position = Vector3.zero;
+        }
     }
 }

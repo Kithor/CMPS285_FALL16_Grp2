@@ -4,8 +4,8 @@ using System.Collections;
 public class AR_Shoot : MonoBehaviour
 {
     public float weaponDamage = 10;
-    public float gunForce = 600;
-    public float fireRate = 0.2f;
+    public float gunForce = 800;
+    public float fireRate = 0.1f;
     public float weaponRange = 50;
     public float hitForce = 100f;
     public Transform gunEnd;
