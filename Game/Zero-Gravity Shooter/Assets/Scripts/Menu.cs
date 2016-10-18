@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -19,10 +18,10 @@ public class Menu : MonoBehaviour
         Credits.enabled = false;            //Credits is disabled
     }
 
-    public void LoadOn()
+    /* public void LoadOn()
     {
-        SceneManager.LoadScene("Game");
-    }
+        SceneManager.LoadScene("MainCanvas");
+    }*/
 
  
     public void OptionsOn()          //opens only the options screen
@@ -78,13 +77,13 @@ public class Menu : MonoBehaviour
                 Credits.enabled = false;
             }
 
-   /* bool isMute;
+    bool isMute;
 
     public void Mute()
     {
         isMute = !isMute;
         AudioListener.volume = isMute ? 0 : 1;
-    } */
+    } 
 
 
 }
