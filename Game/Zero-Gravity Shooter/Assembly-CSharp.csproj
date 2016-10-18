@@ -52,7 +52,6 @@
      <Compile Include="Assets\Scripts\Shotgun_Shoot.cs" />
      <Compile Include="Assets\Scripts\WeaponFire.cs" />
      <Compile Include="Assets\TypeOut\Scripts\GUIScript.cs" />
-     <Compile Include="Assets\TypeOut\Scripts\TypeOutEditor.cs" />
      <Compile Include="Assets\TypeOut\Scripts\TypeOutScript.cs" />
      <None Include="Assets\Epic_Arsenal_Essential_Elements_Demo_Packs\_README.txt" />
  <Reference Include="UnityEngine.UI">

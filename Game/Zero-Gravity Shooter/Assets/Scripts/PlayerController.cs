@@ -4,10 +4,10 @@ using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
 {
-    if(!isLocalPlayer)
-    {
-        return;
-    }    
+    //if(!isLocalPlayer)
+    //{
+    //    return;
+    //}    
 
     public Rigidbody player;
     public float horizontalSpeed = 10.0f;
@@ -41,7 +41,6 @@ public class PlayerController : NetworkBehaviour
     {
         var health = GetComponentInParent<PlayerHealth>();                      //Creates a variable for the Parent Objects health
 
-      //player.velocity = -impactAngle / 4;
         player.angularVelocity = Vector3.zero;                                  //On collision stop player rigidbody rotation
 
         if (col.relativeVelocity.magnitude > 5)
