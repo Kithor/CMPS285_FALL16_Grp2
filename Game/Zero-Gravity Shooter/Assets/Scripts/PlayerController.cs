@@ -1,24 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking; 
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {  
-
-    public Rigidbody player;
+    public Camera cam;
     public float horizontalSpeed = 10.0f;
     public float verticalSpeed = 10.0f;
     public float rotateSpeed = 70.0f;
 
+    private Rigidbody player;
     private float yaw;
     private float pitch;
     private float rotation;
 
+    void Start()
+    {
+        player = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
-
         if(!isLocalPlayer)                                                      //If statement so that only local player can control the local player, and not all entities 
         {
+            cam.enabled = false;
             return;
         }
 
@@ -37,16 +43,21 @@ public class PlayerController : NetworkBehaviour
         {
             transform.Rotate(Vector3.forward, rotation);                        //When Q is pressed rotate around Z-axis
         }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Main Menu");                                 //When escape is pressed, return to main menu
+        }
+
     }
 
     void OnCollisionEnter(Collision col)                                        //Runs on collision
     {
         var health = GetComponentInParent<PlayerHealth>();                      //Creates a variable for the Parent Objects health
-
-      //player.velocity = -impactAngle / 4;
         player.angularVelocity = Vector3.zero;                                  //On collision stop player rigidbody rotation
+        player.velocity = -player.velocity / 2;                                 //On collision change direction
 
-        if (col.relativeVelocity.magnitude > 5)
+        if (col.relativeVelocity.magnitude > 3)
         {   
             health.health -= col.relativeVelocity.magnitude;                    //Take damage on impact with an object
         }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -18,10 +19,10 @@ public class Menu : MonoBehaviour
         Credits.enabled = false;            //Credits is disabled
     }
 
-    /* public void LoadOn()
+    public void LoadOn()
     {
-        SceneManager.LoadScene("MainCanvas");
-    }*/
+        SceneManager.LoadScene("Main");
+    }
 
  
     public void OptionsOn()          //opens only the options screen
