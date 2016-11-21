@@ -44,10 +44,10 @@ public class PlayerController : NetworkBehaviour
             transform.Rotate(Vector3.forward, rotation);                        //When Q is pressed rotate around Z-axis
         }
 
-        if (Input.GetKey(KeyCode.Escape))
+        /*if (Input.GetKey(KeyCode.Escape))
         {
             SceneManager.LoadScene("Main Menu");                                 //When escape is pressed, return to main menu
-        }
+        }*/
 
     }
 
