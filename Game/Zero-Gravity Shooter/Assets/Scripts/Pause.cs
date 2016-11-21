@@ -8,7 +8,7 @@ public class Pause : MonoBehaviour
     private int buttonHeight = 50;
     private int groupWidth = 200;
     private int groupHeight = 170;
-    bool paused = false;
+    public static bool paused = false;
     CursorLockMode locked;
 
 	void Start ()

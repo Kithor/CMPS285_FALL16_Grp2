@@ -41,7 +41,7 @@ public class PlayerHealth : NetworkBehaviour
             RpcRespawn();
         }
 
-        healthSlider.value = health;
+        //healthSlider.value = health;
         spawnPoints = FindObjectsOfType<NetworkStartPosition>();
     }
 

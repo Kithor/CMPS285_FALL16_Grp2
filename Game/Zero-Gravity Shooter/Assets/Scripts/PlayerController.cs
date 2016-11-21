@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
 using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
-{  
+{
+    int num_players;
+
     public Camera cam;
+    public int id = 0;
+    public int kills = 0;
+    public int deaths = 0;
+    public int weapon = 0;
     public float horizontalSpeed = 10.0f;
     public float verticalSpeed = 10.0f;
     public float rotateSpeed = 70.0f;
@@ -18,11 +23,13 @@ public class PlayerController : NetworkBehaviour
     void Start()
     {
         player = GetComponent<Rigidbody>();
+        num_players = Network.connections.Length;
+        id = (num_players + 1);
     }
 
     void Update()
     {
-        if(!isLocalPlayer)                                                      //If statement so that only local player can control the local player, and not all entities 
+        if (!isLocalPlayer)                                                      //If statement so that only local player can control the local player, and not all entities 
         {
             cam.enabled = false;
             return;
@@ -44,11 +51,10 @@ public class PlayerController : NetworkBehaviour
             transform.Rotate(Vector3.forward, rotation);                        //When Q is pressed rotate around Z-axis
         }
 
-        /*if (Input.GetKey(KeyCode.Escape))
+        if(Input.GetKey(KeyCode.Tab))
         {
-            SceneManager.LoadScene("Main Menu");                                 //When escape is pressed, return to main menu
-        }*/
-
+            //enable scoreboard
+        }
     }
 
     void OnCollisionEnter(Collision col)                                        //Runs on collision
