@@ -8,12 +8,19 @@ public class WeaponFire : MonoBehaviour
 
 
     int shotsFired = 0;             //amount of shots fired
-    int maxFired = 33;              //amount that can be fired
+    int maxFired = 1;              //amount that can be fired
 
     private Rigidbody player;
-    public float bulletSpeed = 100; //will be private, public for easy testing
+    public float bulletSpeed = 25; //will be private, public for easy testing
   //public float fireRate = 0;      //private
     public float weaponRange = 50;  //private
+
+
+    public float force = 50.0f;
+    public float radius = 5.0f;
+    public float upwardsModifier = 0.0f;
+    public ForceMode forceMode;
+
 
     void Start()
     {
@@ -31,10 +38,20 @@ public class WeaponFire : MonoBehaviour
 
             shotsFired++;
 
+            if (Input.GetMouseButtonDown(1))
+            {
+                foreach (Collider col in Physics.OverlapSphere(transform.position, radius))
+                {
+                    if (col.GetComponent<Rigidbody>() != null)
+                    {
+                        col.GetComponent<Rigidbody>().AddExplosionForce(force, transform.position, radius, upwardsModifier, forceMode);
+                    }
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             shotsFired = 0;
         }
-	}
+    }
 }
