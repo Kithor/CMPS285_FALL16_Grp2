@@ -5,9 +5,10 @@ using System.Collections;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    public const float maxhealth = 100;
-    [SyncVar] public float health = maxhealth;                    //creates a "currenthealth" pool that is synced across the server for only localplayer
+    PlayerController playerController;
 
+    [SyncVar] public float health = maxhealth;                    //creates a "currenthealth" pool that is synced across the server for only localplayer
+    public const float maxhealth = 100;
     public float healthRegen = 1;
     public float hitTimer = 10;
     public float hitDelay;
@@ -20,6 +21,7 @@ public class PlayerHealth : NetworkBehaviour
 
     void Start()
     {
+        playerController = GetComponentInParent<PlayerController>();
         //healthSlider = GameObject.Find("HUDCanvas").GetComponent<Slider>();
     }
 
@@ -38,6 +40,7 @@ public class PlayerHealth : NetworkBehaviour
         if (health <= 0)
         {
             health = maxhealth;
+            playerController.deaths++;
             RpcRespawn();
         }
 

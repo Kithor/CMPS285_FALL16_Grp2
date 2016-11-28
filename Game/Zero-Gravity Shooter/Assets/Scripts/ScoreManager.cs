@@ -1,71 +1,52 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ScoreManager : MonoBehaviour
 {
+    GameObject player;
+    GameObject playerEntry;
+    Dictionary<int, Dictionary<string, int>> scoreboard;
     int idTemp;
     int killsTemp;
     int deathsTemp;
-    int num_players;
-    GameObject player;
-    Dictionary<int, Dictionary<string, int>> scoreboard;
-
-    public GameObject playerEntryPrefab;
 
     void Start()
     {
-        num_players = Network.connections.Length;
         scoreboard = new Dictionary<int, Dictionary<string, int>>();
-        RefreshScoreBoard();
     }
 
-    void Update()
+    void Init()
     {
-        if(num_players != Network.connections.Length)
-        {
-            RefreshScoreBoard();
-        }
+        if (scoreboard != null)
+            return;
+
+        scoreboard = new Dictionary<int, Dictionary<string, int>>();
     }
 
-    void RefreshScoreBoard()
+    public void AddScore(int id, int scoreValueKills, int scoreValueDeaths)
     {
-        num_players = Network.connections.Length;
-        for(int i = 0; i < num_players; i++)
-        {
-            if (i == 0)
-            {
-                player = GameObject.Find("Player(Clone)");
-            }
-            else
-            {
-                player = GameObject.Find("Player(Clone)" + i);
-            }
-            idTemp = player.GetComponent<PlayerController>().id;
-            killsTemp = player.GetComponent<PlayerController>().kills;
-            deathsTemp = player.GetComponent<PlayerController>().deaths;
-            SetScore(i, "Player ID", idTemp);
-            SetScore(i, "Kills", killsTemp);
-            SetScore(i, "Deaths", deathsTemp);
+        Init();
+        scoreboard[id] = new Dictionary<string, int>();
 
-            GameObject playerEntry = Instantiate(playerEntryPrefab);
-            playerEntry.transform.SetParent(this.transform);
-            playerEntry.transform.Find("Player ID").GetComponent<Text>().text = idTemp.ToString();
-            playerEntry.transform.Find("Kills").GetComponent<Text>().text = killsTemp.ToString();
-            playerEntry.transform.Find("Deaths").GetComponent<Text>().text = deathsTemp.ToString();
-        }
+        scoreboard[id]["Player ID"] = id;
+        scoreboard[id]["Kills"] = scoreValueKills;
+        scoreboard[id]["Deaths"] = scoreValueDeaths;
     }
 
-    void SetScore(int id, string scoreType, int scoreValue)
+    public void UpdateScore(int id, string scoreType, int scoreValue)
     {
         scoreboard[id][scoreType] = scoreValue;
     }
 
-    public IEnumerator EnableScoreboard()
+    public int GetScore(int id, string scoreType)
     {
-        gameObject.SetActive(true);
-        yield return 0;
-        gameObject.SetActive(false);
+        return scoreboard[id][scoreType];
+    }
+
+    public int GetPlayerIDs()
+    {
+        Init();
+        return scoreboard.Keys.ToArray().Length; 
     }
 }
